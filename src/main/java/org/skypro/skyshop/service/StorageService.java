@@ -14,24 +14,31 @@ public class StorageService {
     private final Map<UUID, Article> articles;
 
     public StorageService() {
-        this.products = new HashMap<>();
-        this.articles = new HashMap<>();
+        products = new HashMap<>();
+        articles = new HashMap<>();
         initData();
     }
 
     private void initData() {
 
-        Product p1 = new Product(UUID.randomUUID(), "Milk", 120);
-        Product p2 = new Product(UUID.randomUUID(), "Apple", 50);
+        Product milk = new Product(UUID.randomUUID(), "Milk", 120);
+        Product apple = new Product(UUID.randomUUID(), "Apple", 50);
 
-        Article a1 = new Article(UUID.randomUUID(), "Milk benefits", "text");
-        Article a2 = new Article(UUID.randomUUID(), "Apple guide", "text");
+        Article article1 =
+                new Article(UUID.randomUUID(),
+                        "Milk benefits",
+                        "Milk is useful");
 
-        products.put(p1.getId(), p1);
-        products.put(p2.getId(), p2);
+        Article article2 =
+                new Article(UUID.randomUUID(),
+                        "Apple guide",
+                        "Apple is tasty");
 
-        articles.put(a1.getId(), a1);
-        articles.put(a2.getId(), a2);
+        products.put(milk.getId(), milk);
+        products.put(apple.getId(), apple);
+
+        articles.put(article1.getId(), article1);
+        articles.put(article2.getId(), article2);
     }
 
     public Collection<Product> getAllProducts() {
@@ -45,9 +52,15 @@ public class StorageService {
     public Collection<Searchable> getAllSearchable() {
 
         List<Searchable> result = new ArrayList<>();
+
         result.addAll(products.values());
         result.addAll(articles.values());
 
         return result;
     }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
+    }
+
 }
