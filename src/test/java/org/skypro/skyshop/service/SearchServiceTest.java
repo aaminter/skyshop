@@ -31,10 +31,10 @@ class SearchServiceTest {
         when(storageService.getAllSearchable())
                 .thenReturn(List.of());
 
-        Collection<SearchResult> result =
+        Collection<SearchResult> results =
                 searchService.search("Test");
 
-        assertThat(result).isEmpty();
+        assertThat(results).isEmpty();
     }
 
     @Test
@@ -50,10 +50,10 @@ class SearchServiceTest {
         when(storageService.getAllSearchable())
                 .thenReturn(List.<Searchable>of(product));
 
-        Collection<SearchResult> result =
+        Collection<SearchResult> results =
                 searchService.search("Notebook");
 
-        assertThat(result).isEmpty();
+        assertThat(results).isEmpty();
     }
 
     @Test
@@ -69,10 +69,16 @@ class SearchServiceTest {
         when(storageService.getAllSearchable())
                 .thenReturn(List.<Searchable>of(product));
 
-        Collection<SearchResult> result =
+        Collection<SearchResult> results =
                 searchService.search("Test");
 
-        assertThat(result).hasSize(1);
+        assertThat(results).hasSize(1);
+
+        SearchResult searchResult =
+                results.iterator().next();
+
+        assertThat(searchResult.getName())
+                .isEqualTo("TestProduct");
     }
 
     @Test
@@ -88,9 +94,9 @@ class SearchServiceTest {
         when(storageService.getAllSearchable())
                 .thenReturn(List.<Searchable>of(product));
 
-        Collection<SearchResult> result =
+        Collection<SearchResult> results =
                 searchService.search("note");
 
-        assertThat(result).hasSize(1);
+        assertThat(results).hasSize(1);
     }
 }
